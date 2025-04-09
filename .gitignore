@@ -1,0 +1,21 @@
+# Node
+node_modules/
+dist/
+
+# Prisma
+prisma/dev.db
+prisma/*.sqlite
+prisma/migrations/
+!.gitkeep
+
+# Env
+.env
+
+# Logs
+*.log
+
+# VSCode
+.vscode/
+
+# TS
+*.tsbuildinfo
