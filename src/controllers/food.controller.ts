@@ -55,6 +55,7 @@ export const getFood = async (req: Request, res: Response): Promise<any> => {
     if (typeof from === 'string' && typeof to === 'string') {
       const startDate = parseDate(from);
       const endDate = parseDate(to);
+      endDate.setDate(endDate.getDate() + 1);
 
       whereCondition.date = {
         gte: startDate,
