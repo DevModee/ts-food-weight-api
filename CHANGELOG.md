@@ -1,0 +1,4 @@
+## [1.1.1] - 2025-04-17
+### Added
+- `GET /api/users`: Get all users (ID + username)
+- `DELETE /api/users/:id`: Delete a user by ID with validation

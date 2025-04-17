@@ -3,6 +3,10 @@ import bcrypt from "bcrypt";
 import { prisma } from "../lib/prisma";
 import jwt from "jsonwebtoken";
 
+interface Params {
+  id: string;
+}
+
 export const registerUser = async (
   req: Request,
   res: Response
@@ -88,5 +92,44 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
     res.status(500).json({
       message: "Internal server error",
     });
+  }
+};
+
+export const getAllUsers = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        username: true,
+      },
+    });
+
+    return res.json(users);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Failed to fetch users." });
+  }
+};
+
+export const deleteUserById = async (req: Request<Params>, res: Response): Promise<any> => {
+  const { id } = req.params;
+
+  const userId = parseInt(id, 10);
+
+  if (isNaN(userId)) {
+    return res.status(400).json({ message: "Invalid user ID format" });
+  }
+
+  try {
+    const existingUser  = await prisma.user.findUnique({ where: { id: userId } });
+    if (!existingUser ) {
+      return res.status(404).json({ message: "User  not found" });
+    }
+
+    await prisma.user.delete({ where: { id: userId } });
+    return res.status(200).json({ message: "User  deleted successfully" });
+  } catch (error) {
+    console.error(error); // Log del error
+    return res.status(500).json({ error: "Failed to delete user." });
   }
 };
