@@ -1,4 +1,8 @@
-V1.0
+V1.1
+
+* Last features:
+    1. DELETE for Weight 
+    2. PUT for Weight
 
 # How to run
 
@@ -60,6 +64,18 @@ V1.0
     ```
 
 * `GET /api/weight?userId=:int:/from="DD/MM/YYYY"/to="DD/MM/YYYY"`
+
+* `PUT /api/weight?id=:int:` // register id
+    - Body:
+    ```
+    {
+        value: int,
+        date: Datetime,
+        userId: int
+    }
+    ```
+
+* `DELETE /api/weight?id=:int:&userId=:int:`
 
 
 
