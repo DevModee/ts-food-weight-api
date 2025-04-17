@@ -1,4 +1,4 @@
-## [V1.1.1]
+## [V1.1.1] - 2025-04-17
 ### Added
 - `DELETE for Weight`
 - `PUT for Weight`
