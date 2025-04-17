@@ -1,7 +1,7 @@
 V1.1
 
 * Last features:
-    1. DELETE for Weight 
+    1. DELETE for Weight
     2. PUT for Weight
 
 # How to run
@@ -16,37 +16,42 @@ V1.1
 
 ### User
 
-* `POST /api/users/register` 
-    - Body: 
-    ```
+* `POST /api/users/register`
+    - Body:
+    ```json
     {
-        username: string, 
-        password: string | min: 4 chars
+        "username": "string",
+        "password": "string" // min: 4 chars
     }
     ```
 
-* `POST /api/users/login` 
-    
+* `POST /api/users/login`
     - Body:
-    ``` 
+    ```json
     {
-        username: string, 
-        password: string 
+        "username": "string",
+        "password": "string"
     }
-     ```
+    ```
+
+* `GET /api/users`
+    - Returns a list of all users (id and username)
+
+* `DELETE /api/users/:id`
+    - Deletes a user by their ID
 
 
 ### Food
 *  `POST /api/food`
-    - Body: 
+    - Body:
     ```
     {
-        text: string, 
+        text: string,
         calories: int,
         proteins: int,
-        carbs: int, 
-        date: Datetime, 
-        userId: int 
+        carbs: int,
+        date: Datetime,
+        userId: int
     }
     ```
 
@@ -54,12 +59,12 @@ V1.1
 
 ### Weight
 *  `POST /api/weight`
-    - Body: 
+    - Body:
     ```
     {
         value: int,
-        date: Datetime, 
-        userId: int 
+        date: Datetime,
+        userId: int
     }
     ```
 
