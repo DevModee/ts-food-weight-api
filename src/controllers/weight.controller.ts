@@ -71,3 +71,54 @@ export const getWeight = async (req: Request, res: Response): Promise<any> => {
     res.status(500).json({ error: "Failed to fetch weights" });
   }
 };
+
+export const deleteWeight = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const { id, userId } = req.query;
+
+    await prisma.weight.delete({
+      where: {
+        id: Number(id),
+        userId: Number(userId),
+      }
+    })
+
+    res.status(200).json({
+      message: "Weight deleted successfully",
+    })
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Internal server error",
+    });
+
+  }
+}
+
+export const updateWeight = async (req: Request, res: Response): Promise<any> => {
+  const { id } = req.query;
+  const { value, date, userId } = req.body;
+
+
+  try {
+    const updated = await prisma.weight.updateMany({
+      where: {
+        id: Number(id),
+        userId: Number(userId),
+      },
+      data: {
+        value,
+        date,
+      },
+    });
+
+    if (updated.count === 0) {
+      return res.status(404).json({ message: "Weight not found" });
+    }
+
+    res.json({ message: "Weight updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating weight" });
+  }
+};
