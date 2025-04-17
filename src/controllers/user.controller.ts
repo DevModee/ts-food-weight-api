@@ -90,3 +90,34 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
     });
   }
 };
+
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        username: true,
+      },
+  });
+  return res.json(users);
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to fetch users." });
+  }
+};
+
+export const deleteUserById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const existingUser = await prisma.user.findUnique({ where: { id } });
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    await prisma.user.delete({ where: { id } });
+    return res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to delete user." });
+  }
+};
+
