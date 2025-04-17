@@ -1,8 +1,3 @@
-V1.1
-
-* Last features:
-    1. DELETE for Weight
-    2. PUT for Weight
 
 # How to run
 
